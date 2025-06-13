@@ -1,11 +1,6 @@
 // app/layout.tsx
-import './globals.css'
-import { ReactNode } from 'react'
-
-export const metadata = {
-  title: 'AI Code Debugger',
-  description: 'Debug and review your code using AI',
-}
+import '../styles/globals.css'; // ⚠️ Ensure the path matches where your CSS file is
+import { ReactNode } from 'react';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -14,5 +9,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         {children}
       </body>
     </html>
-  )
+  );
 }
+
