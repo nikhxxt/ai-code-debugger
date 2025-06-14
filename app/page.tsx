@@ -1,8 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import CodeInput from '../components/CodeInput'; // Adjust if your path differs
-import OutputBox from '../components/OutputBox'; // Optional output display
 
 export default function Home() {
   const [code, setCode] = useState('');
@@ -11,41 +9,52 @@ export default function Home() {
 
   const handleSubmit = async () => {
     setLoading(true);
+    setOutput('');
+
     try {
-      const response = await fetch('/api/debug', {
+      const res = await fetch('/api/review', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code }),
       });
 
-      const data = await response.json();
-      setOutput(data.result || 'No output');
+      const data = await res.json();
+      console.log("API response:", data);
+
+      if (data.result) {
+        setOutput(data.result);
+      } else {
+        setOutput('No response received.');
+      }
     } catch (err) {
-      setOutput('Error occurred while debugging');
+      console.error(err);
+      setOutput('Error occurred while fetching the response.');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <main className="min-h-screen p-6 bg-gray-50">
-      <h1 className="text-3xl font-bold mb-4">AI Code Debugger</h1>
-      
-      <CodeInput value={code} onChange={setCode} />
-
+    <main className="p-6 max-w-3xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">AI Code Debugger</h1>
+      <textarea
+        className="w-full p-3 border border-gray-300 rounded-md"
+        rows={10}
+        placeholder="Paste your code here..."
+        value={code}
+        onChange={(e) => setCode(e.target.value)}
+      />
       <button
         onClick={handleSubmit}
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-        disabled={loading}
+        disabled={loading || !code.trim()}
+        className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
       >
-        {loading ? 'Debugging...' : 'Debug Code'}
+        {loading ? 'Analyzing...' : 'Submit for Debugging'}
       </button>
 
-      {output && (
-        <OutputBox output={output} />
-      )}
+      <h2 className="text-xl font-semibold mt-8 mb-2">AI Debug Output:</h2>
+      <pre className="bg-gray-100 p-4 rounded whitespace-pre-wrap">{output}</pre>
     </main>
   );
 }
+
