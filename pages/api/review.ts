@@ -1,8 +1,10 @@
+// File: pages/api/review.ts
+
 import type { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
+  apiKey: process.env.OPENAI_API_KEY!, // Ensure this is set in .env.local
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -18,7 +20,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const completion = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo', // or 'gpt-4' if you have access
+      model: 'gpt-4', // Or 'gpt-3.5-turbo' if you don't have GPT-4 access
       messages: [
         {
           role: 'system',
@@ -32,14 +34,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       temperature: 0.5,
     });
 
+    console.log("🔍 OpenAI raw response:", JSON.stringify(completion, null, 2));
+
     const result = completion.choices?.[0]?.message?.content?.trim();
+
     if (!result) {
-      return res.status(200).json({ result: 'AI returned an empty response.' });
+      return res.status(200).json({ result: '⚠️ AI returned an empty response.' });
     }
 
     return res.status(200).json({ result });
   } catch (error: any) {
-    console.error('OpenAI Error:', error);
+    console.error('❌ OpenAI API Error:', error);
     return res.status(500).json({ error: 'Something went wrong while processing your request.' });
   }
 }
