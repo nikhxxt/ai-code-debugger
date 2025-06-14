@@ -1,5 +1,3 @@
-'use client';
-
 import { useState } from 'react';
 
 export default function Home() {
@@ -12,8 +10,7 @@ export default function Home() {
     setOutput('');
 
     try {
-      // Use absolute URL for API call
-      const res = await fetch(`${window.location.origin}/api/review`, {
+      const res = await fetch('/api/review', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ code }),
@@ -25,11 +22,11 @@ export default function Home() {
       if (data.result) {
         setOutput(data.result);
       } else {
-        setOutput('No response received.');
+        setOutput('❌ No response received.');
       }
     } catch (err) {
       console.error(err);
-      setOutput('Error occurred while fetching the response.');
+      setOutput('❌ Error occurred while fetching the response.');
     } finally {
       setLoading(false);
     }
@@ -58,5 +55,6 @@ export default function Home() {
     </main>
   );
 }
+
 
 
