@@ -1,3 +1,5 @@
+// File: app/page.tsx
+
 'use client';
 
 import { useState } from 'react';
@@ -18,17 +20,26 @@ export default function Home() {
         body: JSON.stringify({ code }),
       });
 
-      const data = await res.json();
-      console.log("API response:", data);
+      const text = await res.text(); // Get raw response
+      console.log("🔍 Raw API response:", text);
 
-      if (data.result) {
-        setOutput(data.result);
-      } else {
-        setOutput('No response received.');
+      try {
+        const data = JSON.parse(text); // Try to parse JSON
+
+        if (data.result) {
+          setOutput(data.result);
+        } else if (data.error) {
+          setOutput('❌ Error from API: ' + data.error);
+        } else {
+          setOutput('⚠️ Unexpected API response format.');
+        }
+      } catch (err) {
+        console.error("❌ JSON parse error:", err);
+        setOutput('❌ Could not parse API response:\n' + text);
       }
     } catch (err) {
-      console.error(err);
-      setOutput('Error occurred while fetching the response.');
+      console.error("❌ Fetch error:", err);
+      setOutput('❌ Network or fetch error.');
     } finally {
       setLoading(false);
     }
@@ -37,6 +48,7 @@ export default function Home() {
   return (
     <main className="p-6 max-w-3xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">AI Code Debugger</h1>
+
       <textarea
         className="w-full p-3 border border-gray-300 rounded-md"
         rows={10}
@@ -44,6 +56,7 @@ export default function Home() {
         value={code}
         onChange={(e) => setCode(e.target.value)}
       />
+
       <button
         onClick={handleSubmit}
         disabled={loading || !code.trim()}
@@ -57,4 +70,5 @@ export default function Home() {
     </main>
   );
 }
+
 
