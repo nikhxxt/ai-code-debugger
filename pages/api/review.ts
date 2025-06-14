@@ -4,18 +4,18 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from 'openai';
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENAI_API_KEY || '',
 });
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Only POST requests allowed' });
+    return res.status(405).json({ error: 'Method Not Allowed' });
   }
 
   const { code } = req.body;
 
-  if (!code) {
-    return res.status(400).json({ error: 'Code snippet is required' });
+  if (!code || typeof code !== 'string') {
+    return res.status(400).json({ error: 'Invalid code input' });
   }
 
   try {
@@ -24,21 +24,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       messages: [
         {
           role: 'system',
-          content: 'You are an expert software engineer. Review the code for bugs, improvements, and best practices.',
+          content: 'You are an expert code debugger. Your job is to detect bugs and suggest corrections.',
         },
         {
           role: 'user',
-          content: `Please review the following code:\n\n${code}`,
+          content: `Here is the code:\n\n${code}\n\nPlease identify bugs and suggest corrected code.`,
         },
       ],
-      temperature: 0.7,
+      temperature: 0.2,
     });
 
-    const aiResponse = completion.choices[0]?.message?.content || 'No response';
+    const reply = completion.choices[0].message.content;
 
-    res.status(200).json({ result: aiResponse });
-  } catch (error: any) {
+    res.status(200).json({ result: reply });
+  } catch (error) {
     console.error('OpenAI Error:', error);
-    res.status(500).json({ error: 'Something went wrong while processing your request.' });
+    res.status(500).json({ error: 'Something went wrong' });
   }
 }
+
