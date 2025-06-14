@@ -48,7 +48,7 @@ npm run dev
 
 Visit `http://localhost:3000` in your browser.
 
-## 🤖 AI Prompt Logic
+## 🤖 AI Prompt Logic 
 
 > You are an expert programming assistant. Review and debug the code. Suggest improvements and give time/space complexity if applicable.
 
