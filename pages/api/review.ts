@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       messages: [
         {
           role: 'system',
-          content: 'You are an expert software engineer. Review the code for bugs, improvements, and best practices.',
+          content: 'You are an expert software engineer. Review the following code for bugs, improvements, and best practices.',
         },
         {
           role: 'user',
