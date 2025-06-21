@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import CodeInput from '@/components/CodeInput'; // adjust path if needed
+import CodeInput from '@/components/CodeInput'; // make sure alias @ is configured, or use ../components
 
 export default function Home() {
   const [code, setCode] = useState('');
@@ -20,7 +20,7 @@ export default function Home() {
       });
 
       const data = await res.json();
-      console.log("API response:", data);
+      console.log('API response:', data);
 
       if (data.result) {
         setOutput(data.result);
@@ -54,6 +54,7 @@ export default function Home() {
     </main>
   );
 }
+
 
 
 
