@@ -1,4 +1,7 @@
+'use client';
+
 import { useState } from 'react';
+import CodeInput from '@/components/CodeInput'; // adjust path if needed
 
 export default function Home() {
   const [code, setCode] = useState('');
@@ -35,13 +38,9 @@ export default function Home() {
   return (
     <main className="p-6 max-w-3xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">AI Code Debugger</h1>
-      <textarea
-        className="w-full p-3 border border-gray-300 rounded-md"
-        rows={10}
-        placeholder="Paste your code here..."
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-      />
+
+      <CodeInput value={code} onChange={setCode} />
+
       <button
         onClick={handleSubmit}
         disabled={loading || !code.trim()}
