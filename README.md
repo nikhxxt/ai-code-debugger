@@ -2,7 +2,7 @@
 
 An intelligent code debugging and review tool built using **Next.js 14**, **React**, **Tailwind CSS**, and the **OpenAI API**. Paste your code, and get instant AI-powered feedback, debugging help, and improvement suggestions.
 
-## 🚀 Features
+## 🚀 Features 
 
 - 🔍 AI-based code analysis and debugging  
 - 💡 Suggestions for improvements, complexity, and error detection  
