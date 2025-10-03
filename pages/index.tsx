@@ -1,35 +1,41 @@
 'use client';
 
-import { useState } from 'react';
-import CodeInput from '@/components/CodeInput'; // make sure alias @ is configured, or use ../components
+import { useState, useEffect } from 'react';
+import CodeInput from '@/components/CodeInput';
+
+declare global {
+  interface Window {
+    puter: any;
+  }
+}
 
 export default function Home() {
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Load Puter.js script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://js.puter.com/v2/';
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   const handleSubmit = async () => {
     setLoading(true);
     setOutput('');
 
     try {
-      const res = await fetch('/api/review', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code }),
-      });
+      const response = await window.puter.ai.chat(
+        `Find bugs in this code:\n\n${code}`,
+        { model: 'gpt-4.1-nano' }
+      );
 
-      const data = await res.json();
-      console.log('API response:', data);
-
-      if (data.result) {
-        setOutput(data.result);
-      } else {
-        setOutput('❌ No response received.');
-      }
+      setOutput(response);
     } catch (err) {
       console.error(err);
-      setOutput('❌ Error occurred while fetching the response.');
+      setOutput('❌ Error occurred while analyzing the code.');
     } finally {
       setLoading(false);
     }
@@ -54,6 +60,7 @@ export default function Home() {
     </main>
   );
 }
+
 
 
 
