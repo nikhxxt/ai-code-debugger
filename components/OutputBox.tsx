@@ -27,8 +27,8 @@ const OutputBox: React.FC<OutputBoxProps> = ({ output, code }) => {
   };
 
   return (
-    <div className="bg-gray-900 text-white p-4 rounded-lg border border-gray-700 shadow-lg">
-      <h2 className="text-lg font-semibold text-blue-400 mb-2">AI Debug Output:</h2>
+    <div className="bg-white text-black p-4 rounded-lg border border-red-500 shadow-xl">
+      <h2 className="text-lg font-semibold text-red-600 mb-2">AI Debug Output:</h2>
       <SyntaxHighlighter language="text" style={vscDarkPlus} wrapLines={true}>
         {output}
       </SyntaxHighlighter>
@@ -37,13 +37,13 @@ const OutputBox: React.FC<OutputBoxProps> = ({ output, code }) => {
         <div className="mt-3 flex gap-2">
           <button
             onClick={handleCopy}
-            className="px-3 py-1 bg-green-600 hover:bg-green-700 rounded text-sm text-white"
+            className="px-3 py-1 bg-red-600 hover:bg-red-700 rounded text-sm text-white"
           >
             📋 Copy Output
           </button>
           <button
             onClick={handleExport}
-            className="px-3 py-1 bg-purple-600 hover:bg-purple-700 rounded text-sm text-white"
+            className="px-3 py-1 bg-black hover:bg-gray-800 rounded text-sm text-white"
           >
             📤 Export JSON
           </button>
