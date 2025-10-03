@@ -1,65 +1,50 @@
-# ai-code-debugger
+# 🧠 AI Code Debugger
 
-An intelligent code debugging and review tool built using **Next.js 14**, **React**, **Tailwind CSS**, and the **OpenAI API**. Paste your code, and get instant AI-powered feedback, debugging help, and improvement suggestions.
+An intelligent code debugging and review tool powered by OpenAI and built with Next.js 14, React, and Tailwind CSS. Paste your code, select a model, and get instant AI-powered feedback, bug detection, and improvement suggestions — across any programming language.
 
-## 🚀 Features 
+---
+
+## 🚀 Features
 
 - 🔍 AI-based code analysis and debugging  
-- 💡 Suggestions for improvements, complexity, and error detection  
-- ✨ Clean, modern UI/UX using Tailwind CSS  
-- 🧑‍💻 Works with multiple programming languages  
-- 📦 Built with latest Next.js App Router and TypeScript  
+- 💡 Improvement suggestions, error detection, and complexity insights  
+- 🧑‍💻 Multi-language support (Python, C++, Java, JS, etc.)  
+- ✨ Modern UI/UX with red–white–black theme and animated animal loading  
+- 🧵 Model selector (Claude, GPT-4, Mixtral)  
+- 📤 Export results as JSON  
+- 🎨 Syntax highlighting for AI responses  
+- ⚡ Built with Next.js App Router and TypeScript  
+
+---
 
 ## 🧰 Tech Stack
 
-- **Framework**: [Next.js 14 (App Router)](https://nextjs.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **API**: [OpenAI GPT-3.5/4](https://platform.openai.com/)
-- **Language**: TypeScript
+| Layer        | Tech                          |
+|--------------|-------------------------------|
+| Framework    | Next.js 14 (App Router)       |
+| Styling      | Tailwind CSS                  |
+| Language     | TypeScript                    |
+| API          | OpenRouter (GPT-4, Claude, etc.) |
+| Deployment   | Vercel                        |
+
+---
 
 ## 🛠️ Getting Started
 
-1. **Clone the repository**
-
 ```bash
-git clone https://github.com/yourusername/ai-code-debugger.git
+# Clone the repo
+git clone https://github.com/nikhxxt/ai-code-debugger.git
 cd ai-code-debugger
-````
 
-2. **Install dependencies**
-
-```bash
+# Install dependencies
 npm install
-```
 
-3. **Add your OpenAI API key**
+# Add your OpenRouter API key
+# Create a file named .env.local
+NEXT_PUBLIC_OPENROUTER_API_KEY=your_openrouter_api_key_here
 
-Create a `.env.local` file:
-
-```
-OPENAI_API_KEY=your_openai_api_key_here
-```
-
-4. **Run the project**
-
-```bash
+# Run the project
 npm run dev
-```
 
-Visit `http://localhost:3000` in your browser.
-
-## 🤖 AI Prompt Logic 
-
-> You are an expert programming assistant. Review and debug the code. Suggest improvements and give time/space complexity if applicable.
-
-## 📌 Future Enhancements
-
-* [ ] Syntax highlighting for AI response
-* [ ] Language selector (Python, C++, Java)
-* [ ] Save past responses or export as PDF
-
-## 📜 License
-
-MIT License
 
 
