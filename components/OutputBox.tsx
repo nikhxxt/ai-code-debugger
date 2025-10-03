@@ -28,7 +28,7 @@ const OutputBox: React.FC<OutputBoxProps> = ({ output, code }) => {
 
   return (
     <div className="bg-white text-black p-4 rounded-lg border border-red-500 shadow-xl">
-      <h2 className="text-lg font-semibold text-red-600 mb-2">AI Debug Output:</h2>
+      <h2 className="text-lg font-semibold text-red-600 mb-2">🐞 AI Debug Output:</h2>
       <SyntaxHighlighter language="text" style={vscDarkPlus} wrapLines={true}>
         {output}
       </SyntaxHighlighter>
