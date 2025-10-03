@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import CodeInput from '../components/CodeInput';
 import OutputBox from '../components/OutputBox';
+import LoadingAnimal from '../components/LoadingAnimal';
 
 export default function Page() {
   const [code, setCode] = useState('');
@@ -54,14 +55,14 @@ export default function Page() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-950 text-white px-4 py-8 flex flex-col items-center">
+    <main className="min-h-screen bg-black text-white px-4 py-8 flex flex-col items-center font-sans">
       <div className="w-full max-w-3xl space-y-6">
-        <h1 className="text-4xl font-bold text-center text-blue-500">🧠 AI Code Debugger</h1>
+        <h1 className="text-4xl font-bold text-center text-red-500 drop-shadow-lg">🧠 AI Code Debugger</h1>
 
         <select
           value={model}
           onChange={(e) => setModel(e.target.value)}
-          className="w-full p-2 bg-gray-800 text-white rounded border border-gray-600"
+          className="w-full p-2 bg-white text-black rounded border border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"
         >
           <option value="openrouter/auto">Auto</option>
           <option value="openrouter/claude-2.1">Claude 2.1</option>
@@ -70,18 +71,21 @@ export default function Page() {
         </select>
 
         <CodeInput value={code} onChange={setCode} />
+
         <button
           onClick={handleDebug}
           disabled={loading}
-          className="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold transition disabled:opacity-50"
+          className="w-full py-3 bg-red-600 hover:bg-red-700 rounded-lg text-white font-semibold transition disabled:opacity-50"
         >
           {loading ? 'Debugging...' : 'Find Bugs'}
         </button>
-        <OutputBox output={output} code={code} />
+
+        {loading ? <LoadingAnimal /> : <OutputBox output={output} code={code} />}
       </div>
     </main>
   );
 }
+
 
 
 
