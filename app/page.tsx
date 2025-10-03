@@ -53,20 +53,23 @@ export default function Page() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-950 text-white p-6 flex flex-col items-center">
-      <h1 className="text-3xl font-bold mb-6">🧠 AI Code Debugger</h1>
-      <CodeInput value={code} onChange={setCode} />
-      <button
-        onClick={handleDebug}
-        disabled={loading}
-        className="mt-4 px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded text-white disabled:opacity-50"
-      >
-        {loading ? 'Debugging...' : 'Find Bugs'}
-      </button>
-      <OutputBox output={output} />
+    <main className="min-h-screen bg-gray-950 text-white px-4 py-8 flex flex-col items-center">
+      <div className="w-full max-w-3xl space-y-6">
+        <h1 className="text-4xl font-bold text-center text-blue-500">🧠 AI Code Debugger</h1>
+        <CodeInput value={code} onChange={setCode} />
+        <button
+          onClick={handleDebug}
+          disabled={loading}
+          className="w-full py-3 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold transition disabled:opacity-50"
+        >
+          {loading ? 'Debugging...' : 'Find Bugs'}
+        </button>
+        <OutputBox output={output} />
+      </div>
     </main>
   );
 }
+
 
 
 
