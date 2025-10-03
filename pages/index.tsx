@@ -15,11 +15,11 @@ export default function Home() {
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: {
-          'Authorization': 'Bearer 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'
+          'Authorization': 'Bearer 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',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'mistral-7b', // ✅ Fast and free model
+          model: 'mistral-7b',
           messages: [
             { role: 'system', content: 'You are a helpful AI code debugger.' },
             { role: 'user', content: `Find bugs in this code:\n\n${code}` }
@@ -68,6 +68,7 @@ export default function Home() {
     </main>
   );
 }
+
 
 
 
