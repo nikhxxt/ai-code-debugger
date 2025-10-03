@@ -2,47 +2,55 @@
 A cloud-native, multi-model AI debugger that analyzes code, explains errors, and delivers delightful output — complete with syntax highlighting, animated animal loading screens, and exportable results.
 
 ![Vercel](https://img.shields.io/badge/Hosted%20on-Vercel-black?logo=vercel)
+![Next.js](https://img.shields.io/badge/Next.js-14-blue?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript)
+![Tailwind](https://img.shields.io/badge/TailwindCSS-Responsive-06B6D4?logo=tailwindcss)
+![OpenRouter](https://img.shields.io/badge/OpenRouter-MultiModel-FF4A4A?logo=openai)
 ![License](https://img.shields.io/github/license/nikhxxt/ai-code-debugger)
 ![Stars](https://img.shields.io/github/stars/nikhxxt/ai-code-debugger?style=social)
 
 ---
 
+## 📚 Table of Contents
+
+- [Live Demo](#-live-demo)
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Supported Models](#-supported-models)
+- [Architecture](#-architecture)
+- [Export Format](#-export-format)
+- [License](#-license)
+- [Topics](#-topics)
+
+---
+
 ## 🔗 Live Demo
 
-👉 link
+👉 [ai-code-debugger.vercel.app](https://ai-code-debugger.vercel.app)
 
 ---
 
 ## 🚀 Features
 
--  Debug code using GPT-4, Claude, Mixtral, Gemini, and more via OpenRouter  
--  Animated animal loading GIFs for emotional engagement  
--  Syntax highlighting with `react-syntax-highlighter`  
--  Copy output and 📤 export as JSON  
--  Model selector with fallback to `openrouter/auto`  
--  Tailwind-powered red–white–black theme  
+- 🔍 Debug code using GPT-4, Claude, Mixtral, Gemini, and more via OpenRouter  
+- 🐾 Animated animal loading GIFs for emotional engagement  
+- 🎨 Syntax highlighting with `react-syntax-highlighter`  
+- 📋 Copy output and 📤 export as JSON  
+- 🧪 Model selector with fallback to `openrouter/auto`  
+- 💅 Tailwind-powered red–white–black theme  
 
 ---
 
-## 📦 Installation
+## 🛠️ Tech Stack
 
-```bash
-git clone https://github.com/nikhxxt/ai-code-debugger.git
-cd ai-code-debugger
-npm install
-```
-
-Create a `.env.local` file:
-
-```env
-NEXT_PUBLIC_OPENROUTER_API_KEY=your_openrouter_api_key_here
-```
-
-Run locally:
-
-```bash
-npm run dev
-```
+| Layer        | Technology                          |
+|--------------|--------------------------------------|
+| Frontend     | Next.js 14 (App Router), TypeScript  |
+| Styling      | Tailwind CSS                        |
+| AI Backend   | OpenRouter API                      |
+| Deployment   | Vercel                              |
+| UI Features  | React Syntax Highlighter, Animated GIF Loader |
+| Utilities    | Clipboard API, Blob Export, ESLint + Prettier |
 
 ---
 
@@ -61,26 +69,17 @@ npm run dev
 
 ---
 
-## 🛠️ Tech Used
+## 🧱 Architecture
 
-- Next.js 14 – App Router, Server Actions, and Client Components
-- TypeScript – Type-safe React components and API integration
-- Tailwind CSS – Utility-first styling with custom red–white–black theme
-- OpenRouter API – Multi-model AI access (GPT-4, Claude, Mixtral, Gemini, etc.)
-- Vercel – Cloud-native deployment and edge performance
-- React Syntax Highlighter – Code output with vscDarkPlus theme
-- Animated GIF Loader – Rotating animal GIFs for emotional engagement
-- Clipboard + Blob API – Copy and export debug output as JSON
-- ESLint + Prettier – Code quality and formatting (optional but recommended)
-
-## 📤 Export Format
-
-```json
-{
-  "input": "your code here",
-  "output": "AI debug response"
-}
 ```
+User Input → Model Selector → /api/debug → OpenRouter API → AI Response
+         ↘︎ LoadingAnimal.tsx ↙︎           ↘︎ OutputBox.tsx ↙︎
+```
+
+- Stateless client-side form with dynamic model selection  
+- Serverless API route (`/api/debug`) handles prompt and fetch  
+- Output rendered with syntax highlighting and export options  
+- Fully deployed via Vercel — no local setup required  
 
 ---
 
@@ -89,4 +88,3 @@ npm run dev
 MIT © [nikhxxt](https://github.com/nikhxxt)
 
 ---
-
