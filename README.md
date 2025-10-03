@@ -15,12 +15,12 @@ A cloud-native, multi-model AI debugger that analyzes code, explains errors, and
 
 ## 🚀 Features
 
-- 🧠 Debug code using GPT-4, Claude, Mixtral, Gemini, and more via OpenRouter  
-- 🐾 Animated animal loading GIFs for emotional engagement  
-- 🎨 Syntax highlighting with `react-syntax-highlighter`  
-- 📋 Copy output and 📤 export as JSON  
-- 🧪 Model selector with fallback to `openrouter/auto`  
-- 💅 Tailwind-powered red–white–black theme  
+-  Debug code using GPT-4, Claude, Mixtral, Gemini, and more via OpenRouter  
+-  Animated animal loading GIFs for emotional engagement  
+-  Syntax highlighting with `react-syntax-highlighter`  
+-  Copy output and 📤 export as JSON  
+-  Model selector with fallback to `openrouter/auto`  
+-  Tailwind-powered red–white–black theme  
 
 ---
 
@@ -63,23 +63,15 @@ npm run dev
 
 ## 🛠️ Tech Used
 
-Next.js 14 – App Router, Server Actions, and Client Components
-
-TypeScript – Type-safe React components and API integration
-
-Tailwind CSS – Utility-first styling with custom red–white–black theme
-
-OpenRouter API – Multi-model AI access (GPT-4, Claude, Mixtral, Gemini, etc.)
-
-Vercel – Cloud-native deployment and edge performance
-
-React Syntax Highlighter – Code output with vscDarkPlus theme
-
-Animated GIF Loader – Rotating animal GIFs for emotional engagement
-
-Clipboard + Blob API – Copy and export debug output as JSON
-
-ESLint + Prettier – Code quality and formatting (optional but recommended)
+- Next.js 14 – App Router, Server Actions, and Client Components
+- TypeScript – Type-safe React components and API integration
+- Tailwind CSS – Utility-first styling with custom red–white–black theme
+- OpenRouter API – Multi-model AI access (GPT-4, Claude, Mixtral, Gemini, etc.)
+- Vercel – Cloud-native deployment and edge performance
+- React Syntax Highlighter – Code output with vscDarkPlus theme
+- Animated GIF Loader – Rotating animal GIFs for emotional engagement
+- Clipboard + Blob API – Copy and export debug output as JSON
+- ESLint + Prettier – Code quality and formatting (optional but recommended)
 
 ## 📤 Export Format
 
@@ -97,16 +89,4 @@ ESLint + Prettier – Code quality and formatting (optional but recommended)
 MIT © [nikhxxt](https://github.com/nikhxxt)
 
 ---
-
-## 📣 Hashtags
-
-```
-#Nextjs #TypeScript #OpenRouter #AItools #GPT4 #ClaudeAI #Mixtral #GeminiPro #TailwindCSS #Vercel #Debugging #DevTools #React #AIUX #PortfolioProject #IndieDev #CloudNative #CodeDebugger
-```
-```
-
----
-
-Paste that into your repo and you're good to go. Let me know if you want a launch tweet or LinkedIn post next. You're ready to show this off.
-
 
