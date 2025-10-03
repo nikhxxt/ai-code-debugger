@@ -19,20 +19,27 @@ export default function Home() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'mistral-7b',
+          model: 'openai/gpt-3.5-turbo', // More reliable for structured output
           messages: [
-            { role: 'system', content: 'You are a helpful AI code debugger.' },
+            { role: 'system', content: 'You are a helpful AI code debugger. Point out syntax errors and logic flaws.' },
             { role: 'user', content: `Find bugs in this code:\n\n${code}` }
           ]
         })
       });
 
       const data = await response.json();
-      const aiReply = data.choices?.[0]?.message?.content || '❌ No response from AI';
-      setOutput(aiReply);
-    } catch (err) {
+      console.log('AI raw response:', data);
+
+      if (data.error) {
+        setOutput(`❌ API Error: ${data.error.message}`);
+        return;
+      }
+
+      const aiReply = data.choices?.[0]?.message?.content?.trim();
+      setOutput(aiReply || '❌ AI returned an empty response.');
+    } catch (err: any) {
       console.error('AI error:', err);
-      setOutput('❌ Error occurred while analyzing the code.');
+      setOutput(`❌ Network error: ${err.message}`);
     } finally {
       setLoading(false);
     }
@@ -68,6 +75,7 @@ export default function Home() {
     </main>
   );
 }
+
 
 
 
