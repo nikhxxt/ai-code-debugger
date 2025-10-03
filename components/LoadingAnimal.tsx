@@ -1,12 +1,35 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
+const gifs = [
+  'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif', // cat
+  'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',   // dog
+  'https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif',      // panda
+  'https://media.giphy.com/media/5xaOcLGvzHxDKjufnLW/giphy.gif', // bunny
+  'https://media.giphy.com/media/3oEduSbSGpGaRX2Vri/giphy.gif'   // hamster
+];
+
 export default function LoadingAnimal() {
+  const [gifIndex, setGifIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setGifIndex((prev) => (prev + 1) % gifs.length);
+    }, 3000); // rotate every 3 seconds
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="flex flex-col items-center justify-center mt-6">
       <img
-        src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif"
+        src={gifs[gifIndex]}
         alt="Cute animal loading"
         className="w-32 h-32 rounded-full shadow-lg"
       />
-      <p className="mt-2 text-red-400 font-semibold animate-pulse">Hang tight... Debugging in progress 🐾</p>
+      <p className="mt-2 text-red-400 font-semibold animate-pulse">
+        🐾 Hang tight... Debugging in progress
+      </p>
     </div>
   );
 }
