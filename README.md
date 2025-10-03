@@ -18,9 +18,7 @@ A cloud-native, multi-model AI debugger that analyzes code, explains errors, and
 - [Tech Stack](#-tech-stack)
 - [Supported Models](#-supported-models)
 - [Architecture](#-architecture)
-- [Export Format](#-export-format)
 - [License](#-license)
-- [Topics](#-topics)
 
 ---
 
