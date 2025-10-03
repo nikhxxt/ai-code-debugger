@@ -1,58 +1,35 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import CodeInput from '@/components/CodeInput';
-
-declare global {
-  interface Window {
-    puter?: {
-      ai?: {
-        chat: (prompt: string, options: { model: string }) => Promise<string>;
-      };
-    };
-  }
-}
+import { useState } from 'react';
 
 export default function Home() {
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [puterReady, setPuterReady] = useState(false);
-
-  // Load Puter.js script
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const script = document.createElement('script');
-      script.src = 'https://js.puter.com/v2/';
-      script.async = true;
-      script.onload = () => setPuterReady(true);
-      script.onerror = () => console.error('Failed to load Puter.js');
-      document.body.appendChild(script);
-    }
-  }, []);
 
   const handleSubmit = async () => {
     setLoading(true);
     setOutput('');
 
     try {
-      if (
-        typeof window === 'undefined' ||
-        !window.puter ||
-        !window.puter.ai ||
-        !window.puter.ai.chat
-      ) {
-        setOutput('❌ Puter.js is not loaded. Please refresh or check your internet connection.');
-        setLoading(false);
-        return;
-      }
+      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer YOUR_API_KEY_HERE', // 🔑 Replace with your actual key
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: 'mistral-7b', // ✅ Fast and free model
+          messages: [
+            { role: 'system', content: 'You are a helpful AI code debugger.' },
+            { role: 'user', content: `Find bugs in this code:\n\n${code}` }
+          ]
+        })
+      });
 
-      const response = await window.puter.ai.chat(
-        `Find bugs in this code:\n\n${code}`,
-        { model: 'deepseek-coder' }
-      );
-
-      setOutput(response);
+      const data = await response.json();
+      const aiReply = data.choices?.[0]?.message?.content || '❌ No response from AI';
+      setOutput(aiReply);
     } catch (err) {
       console.error('AI error:', err);
       setOutput('❌ Error occurred while analyzing the code.');
@@ -62,21 +39,32 @@ export default function Home() {
   };
 
   return (
-    <main className="p-6 max-w-3xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">AI Code Debugger</h1>
-
-      <CodeInput value={code} onChange={setCode} />
-
+    <main style={{ padding: '2rem', fontFamily: 'sans-serif' }}>
+      <h1>🧠 AI Code Debugger</h1>
+      <textarea
+        rows={10}
+        cols={80}
+        placeholder="Paste your code here..."
+        value={code}
+        onChange={(e) => setCode(e.target.value)}
+        style={{ width: '100%', fontFamily: 'monospace', marginBottom: '1rem' }}
+      />
+      <br />
       <button
         onClick={handleSubmit}
-        disabled={loading || !code.trim() || !puterReady}
-        className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 disabled:opacity-50"
+        disabled={loading || !code.trim()}
+        style={{
+          padding: '0.5rem 1rem',
+          fontSize: '1rem',
+          cursor: loading ? 'not-allowed' : 'pointer'
+        }}
       >
-        {loading ? 'Analyzing...' : 'Submit for Debugging'}
+        {loading ? 'Analyzing...' : 'Find Bugs'}
       </button>
-
-      <h2 className="text-xl font-semibold mt-8 mb-2">AI Debug Output:</h2>
-      <pre className="bg-gray-100 p-4 rounded whitespace-pre-wrap">{output}</pre>
+      <h2>🔍 Output</h2>
+      <pre style={{ background: '#f4f4f4', padding: '1rem', whiteSpace: 'pre-wrap' }}>
+        {output}
+      </pre>
     </main>
   );
 }
