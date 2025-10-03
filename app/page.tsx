@@ -1,90 +1,65 @@
 'use client';
 
 import { useState } from 'react';
-import CodeInput from '../components/CodeInput';
-import OutputBox from '../components/OutputBox';
-import LoadingAnimal from '../components/LoadingAnimal';
+import OutputBox from '@/components/OutputBox';
+import LoadingAnimal from '@/components/LoadingAnimal';
+import ModelSelector from '@/components/ModelSelector';
 
-export default function Page() {
+export default function HomePage() {
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
-  const [loading, setLoading] = useState(false);
   const [model, setModel] = useState('openrouter/auto');
+  const [loading, setLoading] = useState(false);
 
-  const handleDebug = async () => {
-    if (!code.trim()) return;
-
+  const handleSubmit = async () => {
     setLoading(true);
     setOutput('');
 
     try {
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const res = await fetch('/api/debug', {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENROUTER_API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          model,
-          messages: [
-            {
-              role: 'system',
-              content: 'You are an expert code debugger. Find and explain the bug in the following code.'
-            },
-            {
-              role: 'user',
-              content: code
-            }
-          ]
-        })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, model })
       });
 
-      const data = await response.json();
-
-      if (data.error) {
-        setOutput(`❌ API Error: ${data.error.message || 'Unknown error'}`);
-      } else {
-        const reply = data.choices?.[0]?.message?.content || 'No response';
-        setOutput(reply);
-      }
+      const data = await res.json();
+      setOutput(data.output || '⚠️ No response from AI');
     } catch (err: any) {
-      setOutput(`❌ Fetch Error: ${err.message}`);
-    } finally {
-      setLoading(false);
+      setOutput(`❌ API Error: ${err.message}`);
     }
+
+    setLoading(false);
   };
 
   return (
-    <main className="min-h-screen bg-black text-white px-4 py-8 flex flex-col items-center font-sans">
-      <div className="w-full max-w-3xl space-y-6">
-        <h1 className="text-4xl font-bold text-center text-red-500 drop-shadow-lg">🧠 AI Code Debugger</h1>
+    <main className="max-w-3xl mx-auto p-6">
+      <h1 className="text-3xl font-bold text-red-600 mb-4">🐞 AI Code Debugger</h1>
 
-        <select
-          value={model}
-          onChange={(e) => setModel(e.target.value)}
-          className="w-full p-2 bg-white text-black rounded border border-red-500 focus:outline-none focus:ring-2 focus:ring-red-500"
-        >
-          <option value="openrouter/auto">Auto</option>
-          <option value="openrouter/claude-2.1">Claude 2.1</option>
-          <option value="openrouter/gpt-4">GPT-4</option>
-          <option value="openrouter/mixtral">Mixtral</option>
-        </select>
+      <ModelSelector model={model} setModel={setModel} />
 
-        <CodeInput value={code} onChange={setCode} />
+      <textarea
+        value={code}
+        onChange={(e) => setCode(e.target.value)}
+        placeholder="Paste your code here..."
+        className="w-full h-40 p-3 border border-red-400 rounded mb-4 text-black"
+      />
 
-        <button
-          onClick={handleDebug}
-          disabled={loading}
-          className="w-full py-3 bg-red-600 hover:bg-red-700 rounded-lg text-white font-semibold transition disabled:opacity-50"
-        >
-          {loading ? 'Debugging...' : 'Find Bugs'}
-        </button>
+      <button
+        onClick={handleSubmit}
+        className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded"
+      >
+        🧠 Debug with AI
+      </button>
 
-        {loading ? <LoadingAnimal /> : <OutputBox output={output} code={code} />}
-      </div>
+      {loading ? (
+        <LoadingAnimal />
+      ) : (
+        output && <OutputBox output={output} code={code} />
+      )}
     </main>
   );
 }
+
 
 
 
