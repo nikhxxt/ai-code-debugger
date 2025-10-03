@@ -6,8 +6,8 @@
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #0a0a0a; /* deep gray for dark mode */
-  color: #ffffff;
+  background-color: #000; /* solid black for deep contrast */
+  color: #fff;
   scroll-behavior: smooth;
 }
 
@@ -16,22 +16,23 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #1f2937; /* gray-800 */
+  background: #1f1f1f; /* darker gray */
 }
 ::-webkit-scrollbar-thumb {
-  background: #3b82f6; /* blue-500 */
+  background: #ef4444; /* red-500 */
   border-radius: 4px;
 }
 
 /* Selection highlight */
 ::selection {
-  background-color: #3b82f6;
+  background-color: #ef4444; /* red-500 */
   color: #ffffff;
 }
 
 /* Headings */
 h1, h2, h3, h4 {
   font-weight: 600;
+  color: #ef4444; /* red accent */
 }
 
 /* Buttons */
@@ -40,4 +41,14 @@ button {
 }
 button:hover {
   transform: scale(1.02);
+}
+
+/* Input fields */
+textarea, input, select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+textarea:focus, input:focus, select:focus {
+  outline: none;
+  border-color: #ef4444;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.5);
 }
