@@ -6,7 +6,7 @@ A cloud-native, multi-model AI debugger that analyzes code, explains errors, and
 ![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript)
 ![Tailwind](https://img.shields.io/badge/TailwindCSS-Responsive-06B6D4?logo=tailwindcss)
 ![OpenRouter](https://img.shields.io/badge/OpenRouter-MultiModel-FF4A4A?logo=openai)
-![License](https://img.shields.io/github/license/nikhxxt/ai-code-debugger)
+![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)
 ![Stars](https://img.shields.io/github/stars/nikhxxt/ai-code-debugger?style=social)
 
 ---
