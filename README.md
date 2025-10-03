@@ -1,11 +1,4 @@
 # 🧠 AI Code Debugger
-Got you now — you want a **clean, copy-paste `README.md` file** that looks great on GitHub *and* includes hashtags at the bottom for easy social sharing. No fluff, no explanations — just the file. Here you go:
-
----
-
-```md
-# 🐞 AI Code Debugger
-
 A cloud-native, multi-model AI debugger that analyzes code, explains errors, and delivers delightful output — complete with syntax highlighting, animated animal loading screens, and exportable results.
 
 ![Vercel](https://img.shields.io/badge/Hosted%20on-Vercel-black?logo=vercel)
