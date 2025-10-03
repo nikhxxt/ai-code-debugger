@@ -8,6 +8,7 @@ export default function Page() {
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
+  const [model, setModel] = useState('openrouter/auto');
 
   const handleDebug = async () => {
     if (!code.trim()) return;
@@ -23,11 +24,11 @@ export default function Page() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'openrouter/auto',
+          model,
           messages: [
             {
               role: 'system',
-              content: 'You are an expert Python debugger. Find and explain the bug in the following code.'
+              content: 'You are an expert code debugger. Find and explain the bug in the following code.'
             },
             {
               role: 'user',
@@ -56,6 +57,18 @@ export default function Page() {
     <main className="min-h-screen bg-gray-950 text-white px-4 py-8 flex flex-col items-center">
       <div className="w-full max-w-3xl space-y-6">
         <h1 className="text-4xl font-bold text-center text-blue-500">🧠 AI Code Debugger</h1>
+
+        <select
+          value={model}
+          onChange={(e) => setModel(e.target.value)}
+          className="w-full p-2 bg-gray-800 text-white rounded border border-gray-600"
+        >
+          <option value="openrouter/auto">Auto</option>
+          <option value="openrouter/claude-2.1">Claude 2.1</option>
+          <option value="openrouter/gpt-4">GPT-4</option>
+          <option value="openrouter/mixtral">Mixtral</option>
+        </select>
+
         <CodeInput value={code} onChange={setCode} />
         <button
           onClick={handleDebug}
@@ -64,7 +77,7 @@ export default function Page() {
         >
           {loading ? 'Debugging...' : 'Find Bugs'}
         </button>
-        <OutputBox output={output} />
+        <OutputBox output={output} code={code} />
       </div>
     </main>
   );
