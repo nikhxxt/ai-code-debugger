@@ -24,7 +24,7 @@ A cloud-native, multi-model AI debugger that analyzes code, explains errors, and
 
 ## 🔗 Live Demo
 
-👉LINK (https://ai-code-debugger-8nlim6g7i-niks-projects-20063e2f.vercel.app/)
+👉 [Live Demo](https://ai-code-debugger-8nlim6g7i-niks-projects-20063e2f.vercel.app/)
 
 ---
 
@@ -83,6 +83,7 @@ User Input → Model Selector → /api/debug → OpenRouter API → AI Response
 
 ## 📄 License
 
-MIT © [nikhxxt](https://github.com/nikhxxt)
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).  
+See the [LICENSE](./LICENSE) file for details.
 
 ---
