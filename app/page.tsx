@@ -1,6 +1,3 @@
-
-
-
 'use client';
 
 import { useState } from 'react';
@@ -19,20 +16,15 @@ export default function HomePage() {
     setOutput('');
 
     try {
-      const res = await fetch('https://api.openrouter.ai/v1/completions', {
+      // Call your server-side API route instead of OpenRouter directly
+      const res = await fetch('/api/debug', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_OPENROUTER_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          model,
-          input: code,
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code, model }),
       });
 
       const data = await res.json();
-      setOutput(data.output || '⚠️ No response from AI');
+      setOutput(data.output || data.error || '⚠️ No response from AI');
     } catch (err: any) {
       console.error(err);
       setOutput(`❌ API Error: ${err.message}`);
@@ -65,6 +57,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
