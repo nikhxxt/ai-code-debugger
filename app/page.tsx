@@ -16,7 +16,6 @@ export default function HomePage() {
     setOutput('');
 
     try {
-      // Call your server-side API route instead of OpenRouter directly
       const res = await fetch('/api/debug', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -57,6 +56,7 @@ export default function HomePage() {
     </main>
   );
 }
+
 
 
 
