@@ -1,3 +1,6 @@
+
+
+
 'use client';
 
 import { useState } from 'react';
@@ -16,23 +19,22 @@ export default function HomePage() {
     setOutput('');
 
     try {
-      const res = await fetch('/api/debug', {
+      const res = await fetch('https://api.openrouter.ai/v1/completions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, model }),
+        headers: {
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_OPENROUTER_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model,
+          input: code,
+        }),
       });
 
-      const text = await res.text(); // fallback to raw response
-      let data;
-
-      try {
-        data = JSON.parse(text);
-      } catch (err) {
-        throw new Error('Invalid JSON response from API');
-      }
-
+      const data = await res.json();
       setOutput(data.output || '⚠️ No response from AI');
     } catch (err: any) {
+      console.error(err);
       setOutput(`❌ API Error: ${err.message}`);
     }
 
@@ -49,27 +51,20 @@ export default function HomePage() {
         value={code}
         onChange={(e) => setCode(e.target.value)}
         placeholder="Paste your code here..."
-        className="w-full h-40 p-3 border border-red-400 rounded mb-4 text-black"
+        className="w-full h-40 p-3 border border-red-400 rounded mb-4 text-black font-mono"
       />
 
       <button
         onClick={handleSubmit}
-        className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded"
+        className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded mb-4"
       >
         🧠 Debug with AI
       </button>
 
-      {loading ? (
-        <LoadingAnimal />
-      ) : (
-        output && <OutputBox output={output} code={code} />
-      )}
+      {loading ? <LoadingAnimal /> : output && <OutputBox output={output} code={code} />}
     </main>
   );
 }
-
-
-
 
 
 
