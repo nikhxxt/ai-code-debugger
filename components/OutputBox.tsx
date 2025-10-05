@@ -54,3 +54,4 @@ const OutputBox: React.FC<OutputBoxProps> = ({ output, code }) => {
 };
 
 export default OutputBox;
+
