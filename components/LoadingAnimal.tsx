@@ -32,4 +32,4 @@ export default function LoadingAnimal() {
       </p>
     </div>
   );
-}
+} 
