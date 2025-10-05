@@ -19,10 +19,18 @@ export default function HomePage() {
       const res = await fetch('/api/debug', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, model })
+        body: JSON.stringify({ code, model }),
       });
 
-      const data = await res.json();
+      const text = await res.text(); // fallback to raw response
+      let data;
+
+      try {
+        data = JSON.parse(text);
+      } catch (err) {
+        throw new Error('Invalid JSON response from API');
+      }
+
       setOutput(data.output || '⚠️ No response from AI');
     } catch (err: any) {
       setOutput(`❌ API Error: ${err.message}`);
@@ -59,8 +67,6 @@ export default function HomePage() {
     </main>
   );
 }
-
-
 
 
 
