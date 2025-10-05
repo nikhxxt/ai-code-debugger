@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
-        'HTTP-Referer': 'https://your-vercel-site.vercel.app',
+        'HTTP-Referer': 'https://ai-code-debugger.vercel.app', // ✅ must match your live domain
         'X-Title': 'AI Code Debugger',
       },
       body: JSON.stringify(payload),
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
 
     try {
       data = JSON.parse(text);
-    } catch (err) {
+    } catch {
       return new Response(
         JSON.stringify({ output: `❌ Failed to parse JSON: ${text}` }),
         { status: 500 }
