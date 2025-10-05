@@ -10,7 +10,7 @@ A cloud-native, multi-model AI debugger that analyzes code, explains errors, and
 ![Stars](https://img.shields.io/github/stars/nikhxxt/ai-code-debugger?style=social)
 
 ---
-
+ 
 ## 📚 Table of Contents
 
 - [Live Demo](#-live-demo)
