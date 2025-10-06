@@ -5,7 +5,7 @@ export async function POST(req: Request) {
     const { code, language } = await req.json();
 
     const apiKey = process.env.GROQ_API_KEY;
-    const model = process.env.AI_MODEL || "mixtral-8x7b-32768"; // ✅ fallback model
+    const model = "llama3-8b-8192";
 
     if (!apiKey) {
       throw new Error("Missing GROQ_API_KEY in environment variables.");
