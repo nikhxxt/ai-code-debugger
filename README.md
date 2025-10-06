@@ -58,11 +58,11 @@ User Input → /api/debug → AI API → AI Response
 
 ```
 
-- Stateless client-side form with dynamic model selection  
+- Stateless client-side form with language selection  
 - Serverless API route (`/api/debug`) handles prompt and fetch  
 - Output rendered with syntax highlighting and export options  
-- Fully deployed via Vercel — no local setup required  
-
+- Fully deployed via Vercel — no local setup required
+  
 ---
 
 ## 📄 License
