@@ -3,20 +3,18 @@
 import { useEffect, useState } from 'react';
 
 const gifs = [
-  'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif', // Cat
-  'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',   // Dog
-  'https://media.giphy.com/media/13borq7Zo2kulO/giphy.gif',      // Panda
-  'https://media.giphy.com/media/5xaOcLGvzHxDKjufnLW/giphy.gif'  // Bunny
+  'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif', // Cat typing
+  'https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif',   // Dog wagging tail
+  'https://media.giphy.com/media/5xaOcLGvzHxDKjufnLW/giphy.gif', // Bunny hopping
+  'https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif'   // Koala waving
 ];
 
 export default function LoadingAnimal() {
-  const [gifIndex, setGifIndex] = useState(0);
+  const [gifIndex, setGifIndex] = useState(() => Math.floor(Math.random() * gifs.length));
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setGifIndex((prev) => (prev + 1) % gifs.length);
-    }, 3000); // rotate every 3 seconds
-    return () => clearInterval(interval);
+    // Pick a new random gif each time loading starts
+    setGifIndex(Math.floor(Math.random() * gifs.length));
   }, []);
 
   return (
