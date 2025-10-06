@@ -2,12 +2,29 @@ import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
-    const { code, model, language } = await req.json();
-    const apiKey = process.env.OPENROUTER_API_KEY;
-    const fallbackModel = 'openai/gpt-3.5-turbo';
+    const { code, language } = await req.json();
+    const provider = process.env.AI_PROVIDER || 'groq';
+    const apiKey = process.env.AI_API_KEY;
+
+    const config = {
+      groq: {
+        url: 'https://api.groq.com/openai/v1/chat/completions',
+        model: 'llama3-8b-8192',
+      },
+      openrouter: {
+        url: 'https://openrouter.ai/api/v1/chat/completions',
+        model: 'openai/gpt-3.5-turbo',
+      },
+      together: {
+        url: 'https://api.together.xyz/v1/chat/completions',
+        model: 'togethercomputer/llama-2-70b-chat',
+      },
+    };
+
+    const { url, model } = config[provider];
 
     if (!apiKey) {
-      throw new Error('API key not found. Set OPENROUTER_API_KEY in Vercel environment variables.');
+      throw new Error('Missing AI_API_KEY in environment variables.');
     }
 
     const systemPrompt =
@@ -28,8 +45,7 @@ export async function POST(req: Request) {
       'Content-Type': 'application/json',
     };
 
-    // 🔍 Primary model request
-    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const res = await fetch(url, {
       method: 'POST',
       headers,
       body: JSON.stringify(payload),
@@ -37,27 +53,11 @@ export async function POST(req: Request) {
 
     const data = await res.json();
 
-    // 🔁 Fallback if model fails or credits error
-    if (!res.ok || data.error?.code === 402 || data.error?.message?.includes('Insufficient credits')) {
-      console.warn('⚠️ Primary model failed:', data.error?.message || res.status);
-
-      const fallbackRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({ ...payload, model: fallbackModel }),
+    if (!res.ok || data.error) {
+      console.error(`❌ ${provider} API error:`, data.error?.message || res.status);
+      return NextResponse.json({
+        output: `❌ ${provider} API error: ${data.error?.message || res.status}`,
       });
-
-      const fallbackData = await fallbackRes.json();
-
-      if (!fallbackRes.ok || fallbackData.error) {
-        console.error('❌ Fallback model failed:', fallbackData.error?.message || fallbackRes.status);
-        return NextResponse.json({
-          output: `❌ Both models failed.\nPrimary: ${data.error?.message || res.status}\nFallback: ${fallbackData.error?.message || fallbackRes.status}`,
-        });
-      }
-
-      const fallbackOutput = fallbackData.choices?.[0]?.message?.content || '⚠️ Fallback model gave no response.';
-      return NextResponse.json({ output: fallbackOutput });
     }
 
     const output = data.choices?.[0]?.message?.content || '⚠️ No response from AI';
