@@ -24,7 +24,7 @@ A cloud-native, multi-model AI debugger that analyzes code, explains errors, and
 
 ## 🔗 Live Demo
 
-👉 [Live Demo](https://ai-code-debugger-bk4s-niks-projects-20063e2f.vercel.app/)
+👉 [Live Demo](https://ai-code-debugger-git-main-niks-projects-20063e2f.vercel.app?_vercel_share=NXXoUTxICaFRryjrJNVQkY7DNTrXSwEa)
 
 ---
 
