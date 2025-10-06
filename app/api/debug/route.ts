@@ -22,8 +22,12 @@ export async function POST(req: Request) {
       },
     };
 
-    const typedProvider = provider as keyof typeof config;
-    const { url, model } = config[typedProvider];
+    // ✅ Validate provider before destructuring
+    if (!config[provider]) {
+      throw new Error(`Invalid AI_PROVIDER: ${provider}`);
+    }
+
+    const { url, model } = config[provider as keyof typeof config];
 
     if (!apiKey) {
       throw new Error('Missing AI_API_KEY in environment variables.');
