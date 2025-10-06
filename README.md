@@ -53,8 +53,10 @@ A cloud-native AI debugger that analyzes code, explains errors, and delivers del
 
 ## 🧱 Architecture
 
+```
 User Input → /api/debug → AI API → AI Response
 ↘︎ LoadingAnimal.tsx ↙︎ ↘︎ OutputBox.tsx ↙︎
+```
 
 - Stateless client-side form with language selection  
 - Serverless API route (`/api/debug`) handles prompt and fetch  
