@@ -30,12 +30,12 @@ A cloud-native, multi-model AI debugger that analyzes code, explains errors, and
 
 ## 🚀 Features
 
-- 🔍 Debug code using GPT-4, Claude, Mixtral, Gemini, and more via OpenRouter  
-- 🐾 Animated animal loading GIFs for emotional engagement  
+- 🔍 Debug code automatically with AI  
+- 🐾 Animated animal loading GIFs for engagement  
 - 🎨 Syntax highlighting with `react-syntax-highlighter`  
 - 📋 Copy output and 📤 export as JSON  
-- 🧪 Model selector with fallback to `openrouter/auto`  
-- 💅 Tailwind-powered red–white–black theme  
+- 🧪 Language selector (auto-detect or select manually)  
+- 💅 Tailwind-powered red–white–black theme 
 
 ---
 
@@ -45,33 +45,19 @@ A cloud-native, multi-model AI debugger that analyzes code, explains errors, and
 |--------------|--------------------------------------|
 | Frontend     | Next.js 14 (App Router), TypeScript  |
 | Styling      | Tailwind CSS                        |
-| AI Backend   | OpenRouter API                      |
+| AI Backend   | Universal AI API (`AI_API_KEY`)      |
 | Deployment   | Vercel                              |
 | UI Features  | React Syntax Highlighter, Animated GIF Loader |
 | Utilities    | Clipboard API, Blob Export, ESLint + Prettier |
 
 ---
 
-## 🧩 Supported Models
-
-| Model Name     | Model ID                             |
-|----------------|--------------------------------------|
-| Auto           | `openrouter/auto`                    |
-| GPT-4          | `openrouter/openai/gpt-4`            |
-| GPT-3.5        | `openrouter/openai/gpt-3.5-turbo`    |
-| Claude 2.1     | `openrouter/anthropic/claude-2.1`    |
-| Claude 3 Opus  | `openrouter/anthropic/claude-3-opus` |
-| Mixtral        | `openrouter/mistral/mixtral`         |
-| Gemini Pro     | `openrouter/google/gemini-pro`       |
-| Command R+     | `openrouter/cohere/command-r-plus`   |
-
----
-
 ## 🧱 Architecture
 
 ```
-User Input → Model Selector → /api/debug → OpenRouter API → AI Response
-         ↘︎ LoadingAnimal.tsx ↙︎           ↘︎ OutputBox.tsx ↙︎
+User Input → /api/debug → AI API → AI Response
+↘︎ LoadingAnimal.tsx ↙︎ ↘︎ OutputBox.tsx ↙︎
+
 ```
 
 - Stateless client-side form with dynamic model selection  
