@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
   try {
     const { code, language } = await req.json();
+
     const provider = process.env.AI_PROVIDER || 'groq';
     const apiKey = process.env.AI_API_KEY;
 
@@ -21,7 +22,8 @@ export async function POST(req: Request) {
       },
     };
 
-    const { url, model } = config[provider];
+    const typedProvider = provider as keyof typeof config;
+    const { url, model } = config[typedProvider];
 
     if (!apiKey) {
       throw new Error('Missing AI_API_KEY in environment variables.');
