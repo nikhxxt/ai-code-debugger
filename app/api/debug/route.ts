@@ -1,15 +1,29 @@
-// app/api/debug/route.ts
 import { NextResponse } from 'next/server';
 
 export async function POST(req: Request) {
   try {
-    const { code, model } = await req.json();
+    const { code, model, language } = await req.json();
 
     const apiKey = process.env.OPENROUTER_API_KEY;
     if (!apiKey) {
       throw new Error('API key not found. Set OPENROUTER_API_KEY in Vercel environment variables.');
     }
 
+    // 🔍 Basic mismatch detection (example: Python syntax in Java mode)
+    const isPythonCode = code.includes('int("') || code.includes('print(');
+    if (language !== 'auto' && language === 'java' && isPythonCode) {
+      return NextResponse.json({
+        output: `⚠️ **Note:** The selected language is **Java**, but the submitted code appears to be **Python**. Please confirm your language selection.`,
+      });
+    }
+
+    // 🧠 Dynamic system prompt based on language
+    const systemPrompt =
+      language === 'auto'
+        ? 'You are an expert code debugger. Detect the language automatically and help the user fix their code.'
+        : `You are an expert code debugger. The language is ${language}. Help the user fix their code.`;
+
+    // 🛰️ Call OpenRouter API
     const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
@@ -21,7 +35,7 @@ export async function POST(req: Request) {
         messages: [
           {
             role: 'system',
-            content: 'You are an expert code debugger. Help the user fix their code.',
+            content: systemPrompt,
           },
           {
             role: 'user',
