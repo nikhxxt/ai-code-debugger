@@ -22,9 +22,7 @@ const ModelSelector: React.FC<ModelSelectorProps> = ({ model, setModel }) => {
         <option value="openai/gpt-4">GPT-4</option>
         <option value="openai/gpt-3.5-turbo">GPT-3.5 Turbo</option>
         <option value="anthropic/claude-3-opus">Claude 3 Opus</option>
-        <option value="mistral/mixtral-8x7b-instruct">Mixtral 8x7B</option>
         <option value="google/gemini-2.5-pro">Gemini 2.5 Pro</option>
-        <option value="cohere/command-r-plus">Command R+</option>
         <option value="meta-llama/llama-3-70b-instruct">LLaMA 3 70B</option>
       </select>
     </div>
