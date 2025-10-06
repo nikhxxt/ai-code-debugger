@@ -6,7 +6,6 @@ const gifs = [
   'https://media.giphy.com/media/nYSHbwGjFqZi7QnY8A/giphy.gif',        // Fox
   'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',        // Cat typing
   'https://media.giphy.com/media/efZeeUTH7aRdxZVjJW/giphy.gif',        // Dog head tilt
-  'https://media.giphy.com/media/kKeJ4JuNkaEZbkPOOL/giphy.gif',        // Cute cat
   'https://media.giphy.com/media/ONuQzM11fjvoY/giphy.gif'              // Baby animals
 ];
 
