@@ -10,7 +10,7 @@ export default function HomePage() {
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
   const [model, setModel] = useState('openrouter/auto');
-  const [language, setLanguage] = useState('python');
+  const [language, setLanguage] = useState('auto');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
@@ -59,8 +59,6 @@ export default function HomePage() {
     </main>
   );
 }
-
-
 
 
 
