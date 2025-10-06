@@ -6,16 +6,15 @@ import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 interface OutputBoxProps {
   output: string;
-  code: string;
 }
 
-const OutputBox: React.FC<OutputBoxProps> = ({ output, code }) => {
+const OutputBox: React.FC<OutputBoxProps> = ({ output }) => {
   const handleCopy = () => {
     navigator.clipboard.writeText(output);
   };
 
   const handleExport = () => {
-    const blob = new Blob([JSON.stringify({ input: code, output }, null, 2)], {
+    const blob = new Blob([JSON.stringify({ output }, null, 2)], {
       type: 'application/json'
     });
     const url = URL.createObjectURL(blob);
