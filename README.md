@@ -44,7 +44,7 @@ A cloud-native AI debugger that analyzes code, explains errors, and delivers del
 |--------------|--------------------------------------|
 | Frontend     | Next.js 14 (App Router), TypeScript  |
 | Styling      | Tailwind CSS                        |
-| AI Backend   | Universal AI API (`AI_API_KEY`)      |
+| AI Backend   | AI API (`AI_API_KEY`)      |
 | Deployment   | Vercel                              |
 | UI Features  | React Syntax Highlighter, Animated GIF Loader |
 | Utilities    | Clipboard API, Blob Export, ESLint + Prettier |
