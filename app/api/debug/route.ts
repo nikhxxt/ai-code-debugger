@@ -10,15 +10,6 @@ export async function POST(req: Request) {
       throw new Error('API key not found. Set OPENROUTER_API_KEY in Vercel environment variables.');
     }
 
-    // 🔍 Basic mismatch detection (example: Python syntax in Java mode)
-    const isPythonCode = code.includes('int("') || code.includes('print(');
-    if (language !== 'auto' && language === 'java' && isPythonCode) {
-      return NextResponse.json({
-        output: `⚠️ **Note:** The selected language is **Java**, but the submitted code appears to be **Python**. Please confirm your language selection.`,
-      });
-    }
-
-    // 🧠 Dynamic system prompt based on language
     const systemPrompt =
       language === 'auto'
         ? 'You are an expert code debugger. Detect the language automatically and help the user fix their code.'
@@ -37,7 +28,7 @@ export async function POST(req: Request) {
       'Content-Type': 'application/json',
     };
 
-    // 🛰️ Primary model request
+    // 🔍 Primary model request
     const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers,
@@ -48,6 +39,8 @@ export async function POST(req: Request) {
 
     // 🔁 Fallback if model fails or credits error
     if (!res.ok || data.error?.code === 402 || data.error?.message?.includes('Insufficient credits')) {
+      console.warn('⚠️ Primary model failed:', data.error?.message || res.status);
+
       const fallbackRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers,
@@ -55,7 +48,15 @@ export async function POST(req: Request) {
       });
 
       const fallbackData = await fallbackRes.json();
-      const fallbackOutput = fallbackData.choices?.[0]?.message?.content || '⚠️ Fallback model failed to respond.';
+
+      if (!fallbackRes.ok || fallbackData.error) {
+        console.error('❌ Fallback model failed:', fallbackData.error?.message || fallbackRes.status);
+        return NextResponse.json({
+          output: `❌ Both models failed.\nPrimary: ${data.error?.message || res.status}\nFallback: ${fallbackData.error?.message || fallbackRes.status}`,
+        });
+      }
+
+      const fallbackOutput = fallbackData.choices?.[0]?.message?.content || '⚠️ Fallback model gave no response.';
       return NextResponse.json({ output: fallbackOutput });
     }
 
@@ -66,5 +67,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: `❌ API Error: ${err.message}` }, { status: 500 });
   }
 }
-
-
