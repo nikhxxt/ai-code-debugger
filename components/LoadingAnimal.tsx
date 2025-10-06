@@ -3,11 +3,11 @@
 import { useEffect, useState } from 'react';
 
 const gifs = [
-  'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',       // Cat typing
-  'https://media3.giphy.com/media/efZeeUTH7aRdxZVjJW/giphy.gif',      // Dog head tilt
-  'https://media.giphy.com/media/5xaOcLGvzHxDKjufnLW/giphy.gif',      // Bunny hopping
-  'https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif',       // Koala waving
-  'https://media.giphy.com/media/nYSHbwGjFqZi7QnY8A/giphy.gif'        // Fox in nature
+  'https://media.giphy.com/media/nYSHbwGjFqZi7QnY8A/giphy.gif',        // Fox
+  'https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif',        // Cat typing
+  'https://media.giphy.com/media/efZeeUTH7aRdxZVjJW/giphy.gif',        // Dog head tilt
+  'https://media.giphy.com/media/kKeJ4JuNkaEZbkPOOL/giphy.gif',        // Cute cat
+  'https://media.giphy.com/media/ONuQzM11fjvoY/giphy.gif'              // Baby animals
 ];
 
 export default function LoadingAnimal() {
@@ -33,4 +33,5 @@ export default function LoadingAnimal() {
     </div>
   );
 }
+
 
