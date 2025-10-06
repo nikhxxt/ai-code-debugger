@@ -1,16 +1,14 @@
 'use client';
-
 import { useState } from 'react';
+import CodeInput from '@/components/CodeInput';
+import LanguageSelector from '@/components/LanguageSelector';
 import OutputBox from '@/components/OutputBox';
 import LoadingAnimal from '@/components/LoadingAnimal';
-import ModelSelector from '@/components/ModelSelector';
-import LanguageSelector from '@/components/LanguageSelector';
 
-export default function HomePage() {
+export default function Home() {
   const [code, setCode] = useState('');
-  const [output, setOutput] = useState('');
-  const [model, setModel] = useState('openrouter/auto');
   const [language, setLanguage] = useState('auto');
+  const [output, setOutput] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
@@ -21,45 +19,33 @@ export default function HomePage() {
       const res = await fetch('/api/debug', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, model, language }),
+        body: JSON.stringify({ code, language }),
       });
 
       const data = await res.json();
-      setOutput(data.output || data.error || '⚠️ No response from AI');
-    } catch (err: any) {
-      console.error(err);
-      setOutput(`❌ API Error: ${err.message}`);
+      setOutput(data.output || data.error || '⚠️ No response from server');
+    } catch (err) {
+      setOutput('❌ Failed to connect to API');
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
-    <main className="max-w-3xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-red-600 mb-4">🐞 AI Code Debugger</h1>
-
-      <ModelSelector model={model} setModel={setModel} />
+    <main className="max-w-3xl mx-auto p-4 space-y-6">
+      <h1 className="text-2xl font-bold">🐞 AI Code Debugger</h1>
       <LanguageSelector language={language} setLanguage={setLanguage} />
-
-      <textarea
-        value={code}
-        onChange={(e) => setCode(e.target.value)}
-        placeholder="Paste your code here..."
-        className="w-full h-40 p-3 border border-red-400 rounded mb-4 text-black font-mono"
-      />
-
+      <CodeInput code={code} setCode={setCode} />
       <button
         onClick={handleSubmit}
-        className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded mb-4"
+        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
       >
         🧠 Debug with AI
       </button>
-
-      {loading ? <LoadingAnimal /> : output && <OutputBox output={output} code={code} />}
+      {loading ? <LoadingAnimal /> : <OutputBox output={output} />}
+      <p className="text-xs text-gray-500 italic">Using universal AI provider</p>
     </main>
   );
 }
-
-
 
 
