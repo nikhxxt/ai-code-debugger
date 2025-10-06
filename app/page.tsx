@@ -4,11 +4,13 @@ import { useState } from 'react';
 import OutputBox from '@/components/OutputBox';
 import LoadingAnimal from '@/components/LoadingAnimal';
 import ModelSelector from '@/components/ModelSelector';
+import LanguageSelector from '@/components/LanguageSelector';
 
 export default function HomePage() {
   const [code, setCode] = useState('');
   const [output, setOutput] = useState('');
   const [model, setModel] = useState('openrouter/auto');
+  const [language, setLanguage] = useState('python');
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
@@ -19,7 +21,7 @@ export default function HomePage() {
       const res = await fetch('/api/debug', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code, model }),
+        body: JSON.stringify({ code, model, language }),
       });
 
       const data = await res.json();
@@ -37,6 +39,7 @@ export default function HomePage() {
       <h1 className="text-3xl font-bold text-red-600 mb-4">🐞 AI Code Debugger</h1>
 
       <ModelSelector model={model} setModel={setModel} />
+      <LanguageSelector language={language} setLanguage={setLanguage} />
 
       <textarea
         value={code}
