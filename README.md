@@ -10,16 +10,6 @@ A cloud-native AI debugger that analyzes code, explains errors, and delivers del
 
 ---
 
-## 📚 Table of Contents
-
-- [Live Demo](#-live-demo)
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Architecture](#-architecture)
-- [Environment Variables](#-environment-variables)
-- [License](#-license)
-
----
 
 ## 🔗 Live Demo
 
